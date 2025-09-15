@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { UserCircle, MessageSquare, Calendar, Trophy, LogOut, Settings, User, Users } from "lucide-react";
+import { UserCircle, MessageSquare, Calendar, Trophy, LogOut, Settings, User } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const Navigation = () => {
@@ -28,7 +28,6 @@ export const Navigation = () => {
 
           <div className="hidden md:flex items-center space-x-6">
             <NavLink href="/profiles" icon={UserCircle} label="Profiles" />
-            <NavLink href="/teachers" icon={Users} label="Teachers" />
             <NavLink href="/chat" icon={MessageSquare} label="Chat" />
             <NavLink href="/booking" icon={Calendar} label="Booking" />
             <NavLink href="/achievements" icon={Trophy} label="Achievements" />

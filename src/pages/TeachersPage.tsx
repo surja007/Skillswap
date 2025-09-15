@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Search, Star, MapPin, Clock, Users, MessageCircle, Calendar, Plus, Filter } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 interface Teacher {
   id: string;
@@ -29,7 +29,6 @@ interface Teacher {
 
 export const TeachersPage = () => {
   const { user } = useAuth();
-  const { toast } = useToast();
   const [teachers, setTeachers] = useState<Teacher[]>([]);
   const [filteredTeachers, setFilteredTeachers] = useState<Teacher[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -63,7 +62,7 @@ export const TeachersPage = () => {
         {
           id: '1',
           name: 'Sarah Chen',
-          avatar: '/placeholder.svg',
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=sarah`,
           skills: ['React', 'JavaScript', 'TypeScript'],
           rating: 4.9,
           reviewCount: 127,
@@ -77,7 +76,7 @@ export const TeachersPage = () => {
         {
           id: '2',
           name: 'Michael Rodriguez',
-          avatar: '/placeholder.svg',
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=michael`,
           skills: ['Python', 'Machine Learning', 'Data Science'],
           rating: 4.8,
           reviewCount: 89,
@@ -91,7 +90,7 @@ export const TeachersPage = () => {
         {
           id: '3',
           name: 'Emily Johnson',
-          avatar: '/placeholder.svg',
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=emily`,
           skills: ['UI/UX Design', 'Figma', 'Adobe Creative Suite'],
           rating: 4.7,
           reviewCount: 156,
@@ -130,18 +129,14 @@ export const TeachersPage = () => {
 
   const handleBecomeTeacher = () => {
     if (!teacherForm.skills || !teacherForm.hourlyRate || !teacherForm.bio) {
-      toast({
-        title: "Missing information",
-        description: "Please fill in all required fields",
-        variant: "destructive"
-      });
+      toast.error("Please fill in all required fields");
       return;
     }
 
     const newTeacher: Teacher = {
       id: Date.now().toString(),
       name: user?.name || 'Anonymous Teacher',
-      avatar: user?.avatar || '/placeholder.svg',
+      avatar: user?.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'teacher'}`,
       skills: teacherForm.skills.split(',').map(s => s.trim()),
       rating: 5.0,
       reviewCount: 0,
@@ -166,10 +161,7 @@ export const TeachersPage = () => {
     });
 
     setShowBecomeTeacherModal(false);
-    toast({
-      title: "Welcome to teaching!",
-      description: "Your teacher profile has been created successfully.",
-    });
+    toast.success("Your teacher profile has been created successfully!");
   };
 
   const getAllSkills = () => {
@@ -358,20 +350,12 @@ interface TeacherCardProps {
 }
 
 const TeacherCard = ({ teacher, index }: TeacherCardProps) => {
-  const { toast } = useToast();
-
   const handleContact = () => {
-    toast({
-      title: "Message sent!",
-      description: `Your message has been sent to ${teacher.name}. They'll respond within ${teacher.responseTime}.`,
-    });
+    toast.success(`Your message has been sent to ${teacher.name}. They'll respond within ${teacher.responseTime}.`);
   };
 
   const handleBookSession = () => {
-    toast({
-      title: "Booking initiated",
-      description: `Redirecting to book a session with ${teacher.name}...`,
-    });
+    toast.success(`Redirecting to book a session with ${teacher.name}...`);
   };
 
   return (

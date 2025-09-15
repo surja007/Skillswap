@@ -12,7 +12,6 @@ import { UserProfile } from "./components/UserProfile";
 import { ChatInterface } from "./components/ChatInterface";
 import { BookingSystem } from "./components/BookingSystem";
 import { AchievementsPage } from "./components/AchievementsPage";
-import { TeachersPage } from "./pages/TeachersPage";
 
 const queryClient = new QueryClient();
 
@@ -47,11 +46,6 @@ const App = () => (
             <Route path="/achievements" element={
               <ProtectedRoute>
                 <AchievementsPage />
-              </ProtectedRoute>
-            } />
-            <Route path="/teachers" element={
-              <ProtectedRoute>
-                <TeachersPage />
               </ProtectedRoute>
             } />
             <Route path="/login" element={<LoginPage />} />
